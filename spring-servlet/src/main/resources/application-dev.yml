@@ -7,7 +7,7 @@ server:
 spring:
   output:
     ansi:
-      enabled: always
+      enabled: detect
   # 视图配置
   thymeleaf:
      cache: false
