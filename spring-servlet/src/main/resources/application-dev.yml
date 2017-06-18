@@ -1,13 +1,10 @@
 server:
   port: 80
-  error:
-    whitelabel:
-      enabled: false
 
 spring:
   output:
     ansi:
-      enabled: detect
+      enabled: detect # 日志颜色
   # 视图配置
   thymeleaf:
      cache: false

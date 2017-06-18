@@ -8,12 +8,10 @@
     <conversionRule conversionWord="wEx"
                     converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
 
-
     <!-- 文件输出格式 -->
-    <property name="PATTERN_DEV" value="${PATTERN_DEV:- %clr(%d{yyyy-MM-dd HH:mm:ss}){Green} -->[%thread]--%clr(%-5level){Green}--[%C.%M]--%clr(%msg){Green} java:%L%n}"></property>
+    <property name="PATTERN_DEV" value="${PATTERN_DEV:- %clr(%d{yyyy-MM-dd HH:mm:ss}){Green} [%thread] %clr(%-5level){Green} [%C.%M] %clr(%msg){Green} java:%L%n}"></property>
     <property name="PATTERN_TEST" value="%d{yyyy-MM-dd HH:mm:ss}-->test-->[%thread]--%-5level--[%C.%M]--%msg java:%L%n"></property>
     <property name="PATTERN_PROD" value="%d{yyyy-MM-dd HH:mm:ss}-->prod-->[%thread]--%-5level--[%C.%M]--%msg java:%L%n"></property>
-
 
     <!-- 开发环境 -->
     <springProfile name="dev">

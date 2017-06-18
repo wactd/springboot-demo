@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.ModelAndView;
 
 import static org.junit.Assert.*;
 
@@ -27,10 +28,18 @@ public class HelloWorldControllerTest extends SpringServletApplicationTests {
     }
     @Test
     public void getPages() throws Exception {
+        ResultActions actions = super.mockMvc.perform(MockMvcRequestBuilders.get("/product/pages"));
+        actions = actions.andDo(MockMvcResultHandlers.print());
+        actions = actions.andExpect(MockMvcResultMatchers.status().isOk());
+        ModelAndView andView = actions.andReturn().getModelAndView();
+        System.out.println(andView);
     }
 
     @Test
     public void hello() throws Exception {
+
+
+
     }
 
 }
