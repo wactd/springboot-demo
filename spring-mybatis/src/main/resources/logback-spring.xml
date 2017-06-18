@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 彩色日志 -->
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+
+    <!-- 文件输出格式 -->
+    <property name="PATTERN_DEV" value="${PATTERN_DEV:- %clr(%d{yyyy-MM-dd HH:mm:ss}){Green} [%thread] %clr(%-5level){Green} [%C.%M] %clr(%msg){Green} java:%L%n}"></property>
+    <property name="PATTERN_TEST" value="%d{yyyy-MM-dd HH:mm:ss}-->test-->[%thread]--%-5level--[%C.%M]--%msg java:%L%n"></property>
+    <property name="PATTERN_PROD" value="%d{yyyy-MM-dd HH:mm:ss}-->prod-->[%thread]--%-5level--[%C.%M]--%msg java:%L%n"></property>
+
+    <!-- 开发环境 -->
+    <springProfile name="dev">
+        <!-- 控制台输出 -->
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+                <pattern>${PATTERN_DEV}</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="java.sql" level="DEBUG">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <!-- 日志输出级别   -->
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+</configuration>
