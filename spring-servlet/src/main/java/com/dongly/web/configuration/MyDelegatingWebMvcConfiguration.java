@@ -1,6 +1,5 @@
 package com.dongly.web.configuration;
 
-import org.springframework.boot.web.servlet.ErrorPageRegistrar;
 import org.springframework.context.annotation.Configuration;
 
 /**
