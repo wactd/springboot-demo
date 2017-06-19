@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @Configuration
 public class MyDelegatingWebMvcConfiguration extends DelegatingWebMvcConfiguration {
 
+
     /**
      * 激活规矩变量(matrix variables)
      * @return
@@ -21,5 +22,4 @@ public class MyDelegatingWebMvcConfiguration extends DelegatingWebMvcConfigurati
         mapping.setRemoveSemicolonContent(false); // 默认为true
         return mapping;
     }
-
 }

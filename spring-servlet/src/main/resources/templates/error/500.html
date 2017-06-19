@@ -6,5 +6,20 @@
 </head>
 <body>
 <h1 th:text="${title} != null ? ${title} : '错误标题'">标题</h1>
+
+<ul>
+    <li>
+        <label>title:</label>
+        <span th:text="${title}"></span>
+    </li>
+    <li>
+        <label>url:</label>
+        <span th:text="${url}"></span>
+    </li>
+    <li>
+        <label>error:</label>
+        <span th:text="${error}"></span>
+    </li>
+</ul>
 </body>
 </html>

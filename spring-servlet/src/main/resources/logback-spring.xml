@@ -24,7 +24,7 @@
         </appender>
 
         <logger name="java.sql" level="DEBUG">
-            <appender-ref ref="stdout" />
+            <appender-ref ref="STDOUT" />
         </logger>
         <!-- 日志输出级别   -->
         <root level="INFO">

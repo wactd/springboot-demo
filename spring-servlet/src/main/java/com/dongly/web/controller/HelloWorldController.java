@@ -4,8 +4,11 @@ import com.dongly.web.base.WebResultVo;
 import com.dongly.web.exception.BaseException;
 import com.dongly.web.exception.BusinessException;
 import com.dongly.web.exception.EnumStatus;
+import org.omg.CORBA.UnknownUserException;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,7 +66,7 @@ public class HelloWorldController {
      */
     @ResponseBody
     @GetMapping(path = "/hello")
-    public WebResultVo<Map<String, Object>> hello() throws BaseException {
+    public WebResultVo<Map<String, Object>> hello() throws BaseException, BindException {
         Map<String, Object> result = new HashMap<>();
         result.put("name", "小虎");
         result.put("age", 24);
