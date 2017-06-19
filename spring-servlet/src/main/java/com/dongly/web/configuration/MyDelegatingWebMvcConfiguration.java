@@ -7,19 +7,17 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 /**
  * Created by tiger on 2017/6/17.
  */
-
 @Configuration
 public class MyDelegatingWebMvcConfiguration extends DelegatingWebMvcConfiguration {
 
-
     /**
-     * 激活规矩变量(matrix variables)
-     * @return
+     * Set if ";" (semicolon) content should be stripped from the request URI.
+     * <p>The default value is {@code true}.
      */
     @Override
     protected RequestMappingHandlerMapping createRequestMappingHandlerMapping() {
         RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
-        mapping.setRemoveSemicolonContent(false); // 默认为true
+        mapping.setRemoveSemicolonContent(false);
         return mapping;
     }
 }
