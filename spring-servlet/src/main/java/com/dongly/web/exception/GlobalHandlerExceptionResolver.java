@@ -93,11 +93,7 @@ public class GlobalHandlerExceptionResolver extends AbstractHandlerMethodExcepti
             modelAndView.addObject("title", "服务器内部错误");
             modelAndView.addObject("url", request.getRequestURL());
             modelAndView.addObject("error", ex);
-            try {
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            modelAndView.setViewName("error/500");
             return modelAndView;
         }
     }

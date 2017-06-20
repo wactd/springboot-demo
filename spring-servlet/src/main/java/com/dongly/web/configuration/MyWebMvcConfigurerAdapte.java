@@ -4,7 +4,7 @@ import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 import com.dongly.web.exception.GlobalHandlerExceptionResolver;
-import com.dongly.web.interceptor.MyInterceptorAdapter;
+import com.dongly.web.interceptor.MyCustomInterceptor;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -12,6 +12,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -19,8 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 保留Spring Boot MVC特性, 自定义其他MVC配置（拦截器，格式化处理器，视图控制器等）
- * 加@EnableWebMvc 代表全面控制Spring MVC
+ * Defines callback methods to customize the Java-based configuration for
+ * Spring MVC enabled via {@code @EnableWebMvc}.
+ * <p>
+ * <p>{@code @EnableWebMvc}-annotated configuration classes may implement
+ * this interface to be called back and given a chance to customize the
+ * default configuration. Consider extending {@link WebMvcConfigurerAdapter},
+ * which provides a stub implementation of all interface methods.
+ *
+ * @since 3.1
  */
 @Configuration
 public class MyWebMvcConfigurerAdapte extends WebMvcConfigurerAdapter {
@@ -34,13 +42,15 @@ public class MyWebMvcConfigurerAdapte extends WebMvcConfigurerAdapter {
      * static resources either declare a
      * {@link org.springframework.web.servlet.handler.MappedInterceptor MappedInterceptor}
      * bean or switch to advanced configuration mode by extending
-     * {@link org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport
-     * WebMvcConfigurationSupport} and then override {@code resourceHandlerMapping}.
+     * {@link org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport}
+     * and then override {@code resourceHandlerMapping}.
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new MyInterceptorAdapter()).addPathPatterns("/**");
-        super.addInterceptors(registry);
+        registry.addInterceptor(new MyCustomInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/error/**", "/index.html");
+        // super.addInterceptors(registry);
     }
 
     /**
@@ -53,8 +63,25 @@ public class MyWebMvcConfigurerAdapte extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 防止html页面不能访问静态资源
-        registry.addResourceHandler("static/**") // 请求URL
+        registry.addResourceHandler("/static/**") // 请求URL
                 .addResourceLocations("classpath:static/"); // 本地路径
+    }
+
+    /**
+     * Configure simple automated controllers pre-configured with the response
+     * status code and/or a view to render the response body. This is useful in
+     * cases where there is no need for custom controller logic -- e.g. render a
+     * home page, perform simple site URL redirects, return a 404 status with
+     * HTML content, a 204 with no content, and more.
+     */
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+
+        // registry.addViewController("/index.html").setViewName("/index");
+
+        // Map a view controller to the given URL path (or pattern) in order to redirect  to another URL
+        registry.addRedirectViewController("/index.html", "/");
+        registry.addRedirectViewController("/index", "/");
     }
 
     /**
@@ -93,11 +120,7 @@ public class MyWebMvcConfigurerAdapte extends WebMvcConfigurerAdapter {
         exceptionResolvers.add(new GlobalHandlerExceptionResolver());
     }
 
-    /**
-     * 使用FastJson进行转换
-     *
-     * @param converters
-     */
+
     /**
      * Configure the {@link HttpMessageConverter}s to use for reading or writing
      * to the body of the request or response.
