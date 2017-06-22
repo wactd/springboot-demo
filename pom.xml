@@ -21,6 +21,7 @@
 	<modules>
 		<module>spring-servlet</module>
 		<module>spring-mybatis</module>
+		<module>spring-redis</module>
 	</modules>
 
 	<properties>
