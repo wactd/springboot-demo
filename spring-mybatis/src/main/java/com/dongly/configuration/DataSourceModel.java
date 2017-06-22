@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * 配置文件实体化
  */
 @Component
-@ConfigurationProperties(prefix = "spring.datasource", ignoreInvalidFields = false)
+@ConfigurationProperties(prefix = "spring.datasource.druid", ignoreInvalidFields = false)
 public class DataSourceModel {
 
     @NotBlank
@@ -19,8 +19,13 @@ public class DataSourceModel {
     private String password;
     @NotBlank
     private String url;
+
+    @NotBlank
+    private String urlParam;
+
     @NotBlank
     private String driverClassName;
+
     @NotBlank
     private String type;
 
@@ -70,6 +75,14 @@ public class DataSourceModel {
     //  配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
     @NotNull
     private String filters;
+
+    public String getUrlParam() {
+        return urlParam;
+    }
+
+    public void setUrlParam(String urlParam) {
+        this.urlParam = urlParam;
+    }
 
     public Integer getTimeBetweenEvictionRunsMillis() {
         return timeBetweenEvictionRunsMillis;

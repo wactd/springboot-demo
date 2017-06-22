@@ -92,7 +92,7 @@ public class MybatisConfiguration {
     public DataSource dataSource() {
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setDriverClassName(dataSourceModel.getDriverClassName());
-        druidDataSource.setUrl(dataSourceModel.getUrl());
+        druidDataSource.setUrl(dataSourceModel.getUrl() + dataSourceModel.getUrlParam());
         druidDataSource.setUsername(dataSourceModel.getUsername());
         druidDataSource.setPassword(dataSourceModel.getPassword());
         druidDataSource.setInitialSize(dataSourceModel.getInitialSize());

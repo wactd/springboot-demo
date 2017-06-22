@@ -1,5 +1,6 @@
 package com.dongly.mapper;
 
+import com.alibaba.fastjson.JSON;
 import com.dongly.SpringMybatisApplicationTests;
 import com.dongly.model.UserPo;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -24,6 +26,11 @@ public class UserMapperTest extends SpringMybatisApplicationTests{
 
     @Test
     public void selectPageList() throws Exception {
+
+        List<UserPo> poList = userMapper.selectPageList();
+
+        System.out.println(JSON.toJSONString(poList));
+
     }
 
     @Test

@@ -1,6 +1,5 @@
 package com.dongly.model;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 /**
